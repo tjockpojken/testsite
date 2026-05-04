@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRF Vivstavarvsvägen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',sans-serif;
+  --accent:#3d6b4f;--accent-hover:#2e5239;--accent-light:#e8f0eb;
+  --warm-light:#f7ede4;--blue-light:#e6f1fb;
+  --bg:#ffffff;--bg2:#f7f6f3;
+  --text:#1a1916;--text2:#6b6760;--text3:#a09c97;
+  --border:rgba(26,25,22,0.12);--border2:rgba(26,25,22,0.22);
+}
+html{font-size:18px}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* NAV */
+.nav{border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100;padding:0 2rem}
+.nav-inner{max-width:1200px;margin:0 auto;height:130px;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.nav-logo img{height:120px;width:auto;display:block}
+.nav-links{display:flex;gap:0.4rem;flex-shrink:0}
+.nav-link{padding:0.6rem 1.4rem;border-radius:2rem;font-size:1rem;cursor:pointer;border:none;background:none;color:var(--text2);font-family:var(--sans);transition:all 0.15s;font-weight:400}
+.nav-link:hover{background:var(--bg2);color:var(--text)}
+.nav-link.active{background:var(--bg2);color:var(--text);font-weight:500}
+
+/* PAGES */
+.page{display:none}
+.page.visible{display:block}
+
+/* HERO */
+.hero{padding:3rem 2rem 2.5rem;border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto}
+.hero h1{font-family:var(--serif);font-size:2.6rem;font-weight:400;line-height:1.2;color:var(--text);margin-bottom:0.75rem}
+.hero h1 span{color:#d4af37}
+.hero p{font-size:1rem;color:var(--text2);line-height:1.85;font-weight:300;max-width:600px}
+.btn-main{padding:0.75rem 1.6rem;border-radius:4px;border:none;background:var(--accent);color:#fff;font-size:1rem;cursor:pointer;font-family:var(--sans);font-weight:500;transition:background 0.15s;letter-spacing:0.02em}
+.btn-main:hover{background:var(--accent-hover)}
+
+/* SECTIONS */
+.sec-title{font-family:var(--serif);font-size:1.7rem;font-weight:400;color:var(--text);margin-bottom:1.5rem}
+
+/* INFO SECTION */
+.info-section{padding:2.5rem 2rem;border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto;width:100%}
+.info-body{font-size:1rem;color:var(--text2);line-height:1.85;font-weight:300;max-width:860px}
+.info-body p{margin-bottom:1.2rem}
+.info-body p:last-child{margin-bottom:0}
+.info-body b{color:var(--text);font-weight:500;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase}
+
+/* DOCUMENTS */
+.docs-section{padding:2.5rem 2rem;border-bottom:1px solid var(--border);max-width:1200px;margin:0 auto;width:100%}
+.docs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:0.75rem;margin-top:1.5rem}
+.doc-card{display:flex;align-items:center;gap:0.9rem;padding:0.9rem 1rem;border:1px solid var(--border);border-radius:0.75rem;background:var(--bg);text-decoration:none;transition:border-color 0.15s;cursor:pointer}
+.doc-card:hover{border-color:var(--border2);text-decoration:none}
+.doc-icon{width:2.4rem;height:2.4rem;border-radius:0.5rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.doc-info{display:flex;flex-direction:column;gap:0.15rem;min-width:0;flex:1}
+.doc-name{font-size:0.9rem;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-meta{font-size:0.78rem;color:var(--text3);font-weight:300}
+
+/* CONTACT BAR */
+.contact-bar{padding:1.5rem 2rem;background:var(--bg2);border-top:1px solid var(--border)}
+.contact-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem}
+.contact-bar p{font-size:0.9rem;color:var(--text2);font-weight:300}
+.contact-bar strong{color:var(--text);font-weight:500}
+
+/* BOOKING PAGE */
+.book-page-wrap{border-top:1px solid var(--border)}
+.book-layout{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 130px);max-width:1200px;margin:0 auto}
+.book-sidebar{border-right:1px solid var(--border);padding:1.5rem;background:var(--bg2);display:flex;flex-direction:column;gap:0.4rem}
+.sb-label{font-size:0.72rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--text3);margin-bottom:0.4rem;font-weight:500}
+.area-btn{width:100%;text-align:left;padding:0.75rem 0.85rem;border-radius:0.5rem;border:1px solid transparent;background:none;cursor:pointer;transition:all 0.15s;display:flex;flex-direction:column;gap:0.15rem;font-family:var(--sans)}
+.area-btn:hover{background:var(--bg);border-color:var(--border)}
+.area-btn.active{background:var(--bg);border-color:var(--border2)}
+.ab-name{font-size:0.95rem;font-weight:500;color:var(--text)}
+.ab-rule{font-size:0.78rem;color:var(--text3)}
+.book-main{display:flex;flex-direction:column}
+.book-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:0.75rem}
+.book-header h2{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:var(--text)}
+.area-badge{font-size:0.78rem;padding:0.2rem 0.75rem;border-radius:20px;font-weight:500}
+.book-content{flex:1;padding:1.5rem;display:flex;flex-direction:column;gap:1.1rem;max-width:720px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem}
+.form-group{display:flex;flex-direction:column;gap:0.35rem}
+.form-group label{font-size:0.85rem;color:var(--text2);font-weight:400}
+input,select{font-size:0.95rem;padding:0.6rem 0.75rem;border:1px solid var(--border);border-radius:0.4rem;background:var(--bg);color:var(--text);width:100%;font-family:var(--sans);transition:border-color 0.15s}
+input:focus,select:focus{outline:none;border-color:var(--border2);box-shadow:0 0 0 3px rgba(61,107,79,0.08)}
+.booking-hint{font-size:0.85rem;color:var(--text2);padding:0.75rem 0.9rem;border-radius:0.4rem;background:var(--bg2);line-height:1.7;font-weight:300;border:1px solid var(--border)}
+.btn-confirm{padding:0.7rem 1.6rem;border-radius:4px;border:none;background:var(--accent);color:#fff;font-size:0.95rem;cursor:pointer;font-family:var(--sans);font-weight:500;align-self:flex-start;transition:background 0.15s}
+.btn-confirm:hover{background:var(--accent-hover)}
+.btn-confirm:disabled{background:var(--text3);cursor:not-allowed}
+.divider{border:none;border-top:1px solid var(--border);margin:0.25rem 0}
+.existing-label{font-size:0.85rem;color:var(--text2);font-weight:500;margin-bottom:0.4rem}
+.booking-list{display:flex;flex-direction:column;gap:0.4rem}
+.bk-item{display:flex;align-items:center;justify-content:space-between;padding:0.65rem 0.85rem;border:1px solid var(--border);border-radius:0.4rem;background:var(--bg)}
+.bk-info{font-size:0.85rem;color:var(--text);font-weight:500}
+.bk-sub{font-size:0.78rem;color:var(--text2);margin-top:0.15rem;font-weight:300}
+.bk-cancel{border:1px solid #f7c1c1;background:none;color:#a32d2d;font-size:0.78rem;padding:0.25rem 0.65rem;border-radius:4px;cursor:pointer;font-family:var(--sans);transition:background 0.15s}
+.bk-cancel:hover{background:#fcebeb}
+.empty-bk{font-size:0.85rem;color:var(--text3);padding:0.75rem 0;font-weight:300}
+.err{font-size:0.85rem;color:#a32d2d;padding:0.55rem 0.75rem;background:#fcebeb;border-radius:0.4rem;border:1px solid #f7c1c1}
+.email-note{font-size:0.78rem;color:var(--text2);padding:0.55rem 0.75rem;border-radius:0.4rem;border:1px solid var(--border);background:var(--bg2);display:none;align-items:center;gap:0.4rem;font-weight:300}
+.status-msg{font-size:0.85rem;padding:0.6rem 0.85rem;border-radius:0.4rem;display:none}
+.status-msg.ok{background:#eaf3de;color:#3b6d11;border:1px solid #c0dd97}
+.status-msg.fail{background:#fcebeb;color:#a32d2d;border:1px solid #f7c1c1}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--accent);color:#fff;padding:0.65rem 1.1rem;border-radius:0.4rem;font-size:0.9rem;font-weight:500;opacity:0;transform:translateY(8px);transition:all 0.22s;pointer-events:none;z-index:999;font-family:var(--sans)}
+.toast.show{opacity:1;transform:none}
+
+@media(max-width:840px){
+  .hero{grid-template-columns:1fr;gap:2rem;padding:2rem 1rem}
+  .hero-visual{display:none}
+  .book-layout{grid-template-columns:1fr}
+  .book-sidebar{border-right:none;border-bottom:1px solid var(--border);flex-direction:row;flex-wrap:wrap;padding:1rem}
+  .nav{padding:0 1rem}
+  .nav-logo img{height:80px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <img src="vivstavarvsvagen.png" alt="BRF Vivstavarvsvägen">
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="goPage('info')">Om oss</button>
+      <button class="nav-link" onclick="goPage('book')">Boka</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     OM OSS
+════════════════════════════════════════════════ -->
+<div class="page visible" id="page-info">
+
+  <div class="hero">
+    <h1>Välkommen till <span>BRF Vivstavarvsvägen</span></h1>
+    <p>En bostadsrättsförening med gemensamma ytor för alla boende. Här hittar du information om föreningen, regler och viktiga dokument.</p>
+  </div>
+
+  <!-- ══ DOKUMENT — byt href="#" mot sökväg till din PDF ════ -->
+  <div class="docs-section">
+    <div class="sec-title">Viktiga dokument</div>
+    <div class="docs-grid">
+
+      <a class="doc-card" href="valkommen.pdf" target="_blank">
+        <div class="doc-icon" style="background:#fcebeb">
+          <svg width="16" height="16" fill="none" stroke="#a32d2d" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="doc-info">
+          <div class="doc-name">Välkommen som medlem</div>
+          <div class="doc-meta">PDF · Välkomstext och ordningsregler</div>
+        </div>
+      </a>
+
+      <a class="doc-card" href="hsbstadgar.pdf" target="_blank">
+        <div class="doc-icon" style="background:#fcebeb">
+          <svg width="16" height="16" fill="none" stroke="#a32d2d" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="doc-info">
+          <div class="doc-name">Stadgar HSB</div>
+          <div class="doc-meta">PDF</div>
+        </div>
+      </a>
+
+      <a class="doc-card" href="stadgar.pdf" target="_blank">
+        <div class="doc-icon" style="background:#fcebeb">
+          <svg width="16" height="16" fill="none" stroke="#a32d2d" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="doc-info">
+          <div class="doc-name">Stadgar BRF Vivstavarvsvägen</div>
+          <div class="doc-meta">PDF</div>
+        </div>
+      </a>
+
+      <a class="doc-card" href="tvatt.pdf" target="_blank">
+        <div class="doc-icon" style="background:#fcebeb">
+          <svg width="16" height="16" fill="none" stroke="#a32d2d" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="doc-info">
+          <div class="doc-name">Tvättstugan</div>
+          <div class="doc-meta">PDF</div>
+        </div>
+      </a>
+
+      <a class="doc-card" href="avlastning.pdf" target="_blank">
+        <div class="doc-icon" style="background:#fcebeb">
+          <svg width="16" height="16" fill="none" stroke="#a32d2d" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="doc-info">
+          <div class="doc-name">På och avlastningsregler</div>
+          <div class="doc-meta">PDF</div>
+        </div>
+      </a>
+
+      <!-- Kopiera ett doc-card block ovan för att lägga till fler dokument -->
+
+    </div>
+  </div>
+  <!-- ════════════════════════════════════════════════════════ -->
+
+  <!-- ══ INFORMATIONSTEXT — redigera här ══════════════════════ -->
+  <div class="info-section">
+    <div class="sec-title">Information till boende</div>
+    <div class="info-body">
+
+      <p><b>Störningar</b><br>
+      För störningsanmälan och dylikt lämnas en fysisk lapp i ordförandens brevlåda. Information om kontaktpersoner inom föreningen finns i trapphusen.</p>
+
+      <p><b>TV</b><br>
+      I vårt nuvarande distributionsavtal från Tele2 har vi ett abonnemangsfritt TV-utbud i uttaget som genererar 16 kanaler bara genom att koppla in antenn från TV till uttag.<br>
+      <a href="https://www.tele2.se/kundservice/tv-och-play/grundutbud">Tele2 Grundutbud →</a></p>
+
+      <p><b>El</b><br>
+      Föreningen har installerat solceller på taket och använder sig av intern debitering för enskilda medlemmars el. Du som ny medlem behöver alltså inte teckna enskilt elavtal. Detta debiteras via HSB på era medlemsavgifter med retroaktiv förskjutning.</p>
+
+      <p><b>Bredband</b><br>
+      I varje lägenhet ingår gratis bredband från Ownit. Som ny medlem måste man införskaffa sig en egen router och koppla in den till dosan som finns över dörren i hallen, och sedan registrera med Ownit att man är ny medlem och vill sätta igång med bredbandet.<br>
+      <a href="https://www.ownit.se/kundservice/guider/abonnemang/aktivering/aktivering-av-bredband-gruppanslutning">Aktivering av bredband Ownit →</a></p>
+
+    </div>
+  </div>
+  <!-- ════════════════════════════════════════════════════════ -->
+
+  <div class="contact-bar">
+    <div class="contact-bar-inner">
+
+    </div>
+  </div>
+
+</div><!-- /page-info -->
+
+
+<!-- ═══════════════════════════════════════════════
+     BOKA LOKAL
+════════════════════════════════════════════════ -->
+<div class="page" id="page-book">
+  <div class="book-page-wrap">
+    <div class="book-layout">
+      <div class="book-sidebar">
+        <div class="sb-label">Välj lokal</div>
+        <button class="area-btn active" onclick="selectArea('bbq')" id="ab-bbq">
+          <span class="ab-name">Grillplats</span>
+          <span class="ab-rule">Timbokning · ingen gräns</span>
+        </button>
+        <button class="area-btn" onclick="selectArea('apt')" id="ab-apt">
+          <span class="ab-name">Gästlägenhet</span>
+          <span class="ab-rule">Dagsbokning · max 3 nätter</span>
+        </button>
+        <button class="area-btn" onclick="selectArea('carp')" id="ab-carp">
+          <span class="ab-name">Snickeriverkstad</span>
+          <span class="ab-rule">Timbokning · max 72 timmar</span>
+        </button>
+      </div>
+
+      <div class="book-main">
+        <div class="book-header">
+          <h2 id="bk-title">Grillplats</h2>
+          <span class="area-badge" id="bk-badge" style="background:#c8ead4;color:#2e5239">Timbokning · ingen gräns</span>
+        </div>
+        <div class="book-content">
+
+          <div class="form-group" style="max-width:20rem">
+            <label>Ditt namn</label>
+            <input type="text" id="f-name" placeholder="För- och efternamn">
+          </div>
+
+          <div class="form-row" id="hourly-fields">
+            <div class="form-group">
+              <label>Datum</label>
+              <input type="date" id="f-date">
+            </div>
+            <div class="form-group">
+              <label>Starttid</label>
+              <input type="time" id="f-start" value="10:00" step="3600">
+            </div>
+          </div>
+
+          <div class="form-group" id="hours-field" style="max-width:12rem">
+            <label>Antal timmar</label>
+            <select id="f-hours"></select>
+          </div>
+
+          <div class="form-row" id="daily-fields" style="display:none;max-width:26rem">
+            <div class="form-group">
+              <label>Incheckningsdatum</label>
+              <input type="date" id="f-checkin">
+            </div>
+            <div class="form-group">
+              <label>Antal nätter</label>
+              <select id="f-nights">
+                <option value="1">1 natt</option>
+                <option value="2">2 nätter</option>
+                <option value="3">3 nätter</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="booking-hint" id="bk-hint">Boka grillplatsen per timme. Ingen övre tidsgräns — kontrollera lediga tider nedan.</div>
+
+          <div class="email-note" id="email-note">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="flex-shrink:0;opacity:0.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            En notifiering skickas automatiskt till styrelsen vid bekräftad bokning.
+          </div>
+
+          <div id="f-err" class="err" style="display:none"></div>
+          <div id="f-status" class="status-msg"></div>
+
+          <button class="btn-confirm" id="btn-confirm" onclick="submitBooking()">Bekräfta bokning</button>
+
+          <hr class="divider">
+
+          <div class="existing-label" id="ex-label">Kommande bokningar — Grillplats</div>
+          <div class="booking-list" id="booking-list"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-book -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── INSTÄLLNING ──────────────────────────────────────────────
+// URL till PHP-filen. Behåll som det är om båda filerna ligger i samma mapp.
+const SEND_URL = 'send_booking.php';
+// ────────────────────────────────────────────────────────────
+
+let curArea = 'bbq';
+let bookings = [];
+
+const AREAS = {
+  bbq:  { label:'Grillplats',       rule:'Timbokning · ingen gräns',   badge:{bg:'#c8ead4',color:'#2e5239'}, type:'hourly', maxHours:null, adminEmail:false },
+  apt:  { label:'Gästlägenhet',     rule:'Dagsbokning · max 3 nätter', badge:{bg:'#f0d5c2',color:'#7a3b1e'}, type:'daily',  maxNights:3,   adminEmail:true  },
+  carp: { label:'Snickeriverkstad', rule:'Timbokning · max 72 timmar', badge:{bg:'#c4d8f0',color:'#1a4a7a'}, type:'hourly', maxHours:72,   adminEmail:false },
+};
+
+const HINTS = {
+  bbq:  'Boka grillplatsen per timme. Ingen övre tidsgräns — kontrollera lediga tider nedan.',
+  apt:  'Boka gästlägenheten för 1–3 nätter. Utcheckning sker senast kl. 11:00 på sista dagen. Styrelsen meddelas automatiskt.',
+  carp: 'Boka snickeriverkstaden per timme. Maximalt 72 timmar (3 dagar) totalt per bokning.',
+};
+
+function buildHourOptions(maxH) {
+  const sel = document.getElementById('f-hours');
+  sel.innerHTML = '';
+  const cap = maxH || 24;
+  for (let i = 1; i <= cap; i++) {
+    const o = document.createElement('option');
+    o.value = i;
+    o.textContent = i === 1 ? '1 timme' : i + ' timmar';
+    sel.appendChild(o);
+  }
+}
+
+function setTodayMin() {
+  const today = new Date().toISOString().slice(0, 10);
+  ['f-date','f-checkin'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.min = today;
+  });
+}
+
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+  document.getElementById('page-' + id).classList.add('visible');
+  document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-link')[id === 'info' ? 0 : 1].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function selectArea(id) {
+  curArea = id;
+  const a = AREAS[id];
+  document.querySelectorAll('.area-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('ab-' + id).classList.add('active');
+  document.getElementById('bk-title').textContent = a.label;
+  const badge = document.getElementById('bk-badge');
+  badge.textContent = a.rule;
+  badge.style.background = a.badge.bg;
+  badge.style.color = a.badge.color;
+  const isDaily = a.type === 'daily';
+  document.getElementById('hourly-fields').style.display = isDaily ? 'none' : 'grid';
+  document.getElementById('hours-field').style.display   = isDaily ? 'none' : 'block';
+  document.getElementById('daily-fields').style.display  = isDaily ? 'grid' : 'none';
+  document.getElementById('email-note').style.display    = a.adminEmail ? 'flex' : 'none';
+  document.getElementById('bk-hint').textContent = HINTS[id];
+  document.getElementById('ex-label').textContent = 'Kommande bokningar — ' + a.label;
+  clearMessages();
+  if (!isDaily) buildHourOptions(a.maxHours);
+  renderList();
+}
+
+function fmtDate(d) {
+  return new Date(d + 'T12:00:00').toLocaleDateString('sv-SE', { weekday:'short', day:'numeric', month:'short' });
+}
+
+function renderList() {
+  const list = document.getElementById('booking-list');
+  const now  = new Date().toISOString().slice(0, 10);
+  const ab   = bookings.filter(b => b.area === curArea && b.dateEnd >= now);
+  if (!ab.length) { list.innerHTML = '<div class="empty-bk">Inga kommande bokningar.</div>'; return; }
+  const sorted = [...ab].sort((a, b) =>
+    a.dateStart.localeCompare(b.dateStart) || (a.startTime || '').localeCompare(b.startTime || ''));
+  list.innerHTML = sorted.map(b => {
+    const t = b.type === 'daily'
+      ? fmtDate(b.dateStart) + ' – ' + fmtDate(b.dateEnd) + ' (' + b.nights + ' natt' + (b.nights > 1 ? 'er' : '') + ')'
+      : fmtDate(b.dateStart) + ' · ' + b.startTime + '–' + b.endTime;
+    return `<div class="bk-item">
+      <div>
+        <div class="bk-info">${b.name}</div>
+        <div class="bk-sub">${t}</div>
+      </div>
+      <button class="bk-cancel" onclick="cancelBooking('${b.id}')">Avboka</button>
+    </div>`;
+  }).join('');
+}
+
+function saveBookings() {
+  try { localStorage.setItem('vivstavarvsvagen-bk', JSON.stringify(bookings)); } catch(e) {}
+}
+
+function loadBookings() {
+  try {
+    const r = localStorage.getItem('vivstavarvsvagen-bk');
+    if (r) bookings = JSON.parse(r);
+  } catch(e) { bookings = []; }
+}
+
+function showErr(msg) {
+  const el = document.getElementById('f-err');
+  el.textContent = msg; el.style.display = 'block';
+}
+function clearMessages() {
+  document.getElementById('f-err').style.display = 'none';
+  const s = document.getElementById('f-status');
+  s.style.display = 'none'; s.className = 'status-msg';
+}
+function showStatus(msg, ok) {
+  const s = document.getElementById('f-status');
+  s.textContent = msg;
+  s.className = 'status-msg ' + (ok ? 'ok' : 'fail');
+  s.style.display = 'block';
+}
+
+function overlapsHourly(existing, date, startH, endH) {
+  return existing.filter(b => b.type === 'hourly' && b.dateStart === date).some(b =>
+    !(endH <= parseInt(b.startTime) || startH >= parseInt(b.endTime)));
+}
+function overlapsDaily(existing, ci, co) {
+  return existing.filter(b => b.type === 'daily').some(b =>
+    !(co <= b.dateStart || ci >= b.dateEnd));
+}
+function addDays(d, n) {
+  const dt = new Date(d + 'T12:00:00');
+  dt.setDate(dt.getDate() + n);
+  return dt.toISOString().slice(0, 10);
+}
+
+async function sendAdminNotification(booking) {
+  const payload = {
+    name:     booking.name,
+    checkin:  fmtDate(booking.dateStart),
+    checkout: fmtDate(booking.dateEnd),
+    nights:   booking.nights,
+  };
+  const resp = await fetch(SEND_URL, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(payload),
+  });
+  const data = await resp.json();
+  return data.ok === true;
+}
+
+async function submitBooking() {
+  clearMessages();
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) { showErr('Ange ditt namn för att fortsätta.'); return; }
+
+  const a        = AREAS[curArea];
+  const existing = bookings.filter(b => b.area === curArea);
+  const btn      = document.getElementById('btn-confirm');
+
+  if (a.type === 'daily') {
+    const checkin = document.getElementById('f-checkin').value;
+    const nights  = parseInt(document.getElementById('f-nights').value);
+    if (!checkin) { showErr('Välj ett incheckningsdatum.'); return; }
+    const checkout = addDays(checkin, nights);
+    if (overlapsDaily(existing, checkin, checkout)) {
+      showErr('De valda datumen överlappar en befintlig bokning. Välj andra datum.');
+      return;
+    }
+    const bk = { id: Date.now().toString(), area: curArea, type: 'daily', name, dateStart: checkin, dateEnd: checkout, nights };
+    bookings.push(bk);
+    saveBookings();
+    renderList();
+
+    btn.disabled = true;
+    btn.textContent = 'Skickar notifiering…';
+    try {
+      const ok = await sendAdminNotification(bk);
+      if (ok) {
+        showStatus('Bokning bekräftad! Styrelsen har meddelats via e-post.', true);
+        showToast('Bokning bekräftad!');
+      } else {
+        showStatus('Bokningen sparades men e-postnotifieringen misslyckades. Kontakta styrelsen manuellt.', false);
+        showToast('Bokning sparad (e-post misslyckades)');
+      }
+    } catch(e) {
+      showStatus('Bokningen sparades men e-postnotifieringen misslyckades. Kontakta styrelsen manuellt.', false);
+      showToast('Bokning sparad');
+    }
+    btn.disabled = false;
+    btn.textContent = 'Bekräfta bokning';
+
+  } else {
+    const date      = document.getElementById('f-date').value;
+    const startTime = document.getElementById('f-start').value;
+    const hours     = parseInt(document.getElementById('f-hours').value);
+    if (!date) { showErr('Välj ett datum.'); return; }
+    const startH = parseInt(startTime), endH = startH + hours;
+    if (endH > 24) { showErr('Bokningen sträcker sig förbi midnatt. Justera starttid eller antal timmar.'); return; }
+    if (a.maxHours) {
+      const used = existing.reduce((s, b) => s + (b.type === 'hourly' ? parseInt(b.endTime) - parseInt(b.startTime) : 0), 0);
+      if (used + hours > a.maxHours) {
+        showErr('Bokningen överstiger maxgränsen på ' + a.maxHours + ' timmar. Du har ' + (a.maxHours - used) + ' timmar kvar.');
+        return;
+      }
+    }
+    if (overlapsHourly(existing, date, startH, endH)) {
+      showErr('Den valda tiden överlappar en befintlig bokning. Välj en annan tid.');
+      return;
+    }
+    const endTime = String(endH).padStart(2, '0') + ':00';
+    bookings.push({ id: Date.now().toString(), area: curArea, type: 'hourly', name, dateStart: date, dateEnd: date, startTime, endTime });
+    saveBookings();
+    showToast('Bokning bekräftad!');
+    renderList();
+  }
+}
+
+function cancelBooking(id) {
+  bookings = bookings.filter(b => b.id !== id);
+  saveBookings();
+  showToast('Bokning avbokad.');
+  renderList();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// Init
+loadBookings();
+setTodayMin();
+buildHourOptions(null);
+renderList();
+</script>
+</body>
+</html>
